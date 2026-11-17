@@ -120,17 +120,3 @@ function placeFood() {
   foodY = Math.floor(Math.random() * config.boardsize) * config.tilesize;
 }
 
-function collect_fruit() {
-  snakeBody.push([fruitX, fruitY]);
-  placeFood();
-}
-
-function growSnake() {
-  for (let i = snakeBody.length - 1; i > 0; i--) {
-    // it will store previous part of snake to the current part
-    snakeBody[i] = snakeBody[i - 1];
-  }
-  if (snakeBody.length) {
-    snakeBody[0] = [snakeX, snakeY];
-  }
-}
