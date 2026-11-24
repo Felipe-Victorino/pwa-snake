@@ -1,0 +1,28 @@
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  grid-template-rows: repeat(3, 60px);
+  gap: 8px;
+  width: max-content;
+  -webkit-user-select: none;
+}
+
+.dpad-btn {
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dpad-btn:active, .dpad-btn.active {
+  background: #666;
+  transform: scale(0.95);
+}
+
+/* Position buttons in a cross */
+.up    { grid-column: 2; grid-row: 1; }
+.left  { grid-column: 1; grid-row: 2; }
+.right { grid-column: 3; grid-row: 2; }
+.down  { grid-column: 2; grid-row: 3; }
