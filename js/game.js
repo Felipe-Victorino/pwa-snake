@@ -46,29 +46,6 @@ export function start() {
   setInterval(update, curSpeed / 10);
 }
 
-function buttonSetup() {
-  console.log("Button setup");
-  buttons.forEach((btn) => {
-    const direction = btn.dataset.direction;
-    console.log(`Setting up button: ${direction}`);
-
-    btn.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-      btn.setPointerCapture(e.pointerId);
-      inputState[direction] = true;
-      btn.classList.add("active");
-    });
-
-    const releaseButton = () => {
-      inputState[direction] = false;
-      btn.classList.remove("active");
-    };
-
-    btn.addEventListener("pointerup", releaseButton);
-    btn.addEventListener("pointercancel", releaseButton);
-  });
-}
-
 function update() {
   if (gameOver) {
     return;
@@ -123,6 +100,13 @@ function setDirection(x, y) {
 
   speedX = x;
   speedY = y;
+}
+
+function checkScore(){
+  let tally = score % 5;
+  if (tally == 0) {
+    curSpeed += 1000;
+  }
 }
 
 function move(e) {
