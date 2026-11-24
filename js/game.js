@@ -63,7 +63,6 @@ function update() {
   if (snakeX == foodX && snakeY == foodY) {
     snakeBody.push([foodX, foodY]);
     score += 1;
-    checkScore();
     placeFood();
   }
 
@@ -102,12 +101,6 @@ function setDirection(x, y) {
   speedY = y;
 }
 
-function checkScore(){
-  let tally = score % 5;
-  if (tally == 0) {
-    curSpeed += 1000;
-  }
-}
 
 function move(e) {
   if (e.code == "ArrowUp") {
