@@ -6,15 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/dpad.css" />
     <title>Snake PWA</title>
   </head>
   <body>
-    <header>Jogo da Cobra</header>
-    <main>
-      <canvas id="game-board"></canvas>
-    </main>
+    <header><h1>Jogo da Cobra</h1></header>
+    <content>
+      <main>
+        <canvas id="game-board"></canvas>
+      </main>
+      <div class="dpad">
+        <button class="dpad-button up" data-direction="up">▲</button>
+        <button class="dpad-button right" data-direction="right">▶</button>
+        <button class="dpad-button left" data-direction="left">◀</button>
+        <button class="dpad-button down" data-direction="down">▼</button>
+      </div>
+    </content>
 
-    <footer></footer>
+    <footer>
+      Veja o
+      <a href="https://github.com/Felipe-Victorino/pwa-snake.git"
+        >código fonte</a
+      >
+    </footer>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
