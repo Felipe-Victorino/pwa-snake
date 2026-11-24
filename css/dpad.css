@@ -1,0 +1,27 @@
+#controls {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  grid-template-rows: repeat(3, 64px);
+  grid-template-areas:
+    ".    up   .    "
+    "left down right";
+  gap: 0.5rem;
+}
+
+#controls button {
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #1e3a23;
+  border: none;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+#controls button:active {
+  background-color: #2e5a35;
+}
+
+#up { grid-area: up; }
+#down { grid-area: down; }
+#left { grid-area: left; }
+#right { grid-area: right; }
