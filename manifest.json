@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#006400",
-  "theme_color": "#006400",
+  "theme_color": "#0f1f12",
   "lang": "pt-BR",
   "icons": [
     { "src": "icons/snake192.png", "type": "image/png", "sizes": "192x192" },

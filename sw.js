@@ -1,4 +1,4 @@
-const CACHE = "snake-v1";
+const CACHE = "snake-v1-commit-a1c5601dcb837e6e69c1ad2a746b0b647f06a7d8";
 
 const ASSETS = [
   "./",
