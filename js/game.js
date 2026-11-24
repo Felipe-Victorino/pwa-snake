@@ -20,7 +20,15 @@ export function start() {
   board.width = config.boardsize * config.tilesize;
   context = board.getContext("2d");
 
+  // Keyboard controls
   addEventListener("keyup", move);
+
+  // Screen controls
+  document.querySelector("#up").addEventListener("pointerdown", () => setDirection(0, -1));
+  document.querySelector("#down").addEventListener("pointerdown", () => setDirection(0, 1));
+  document.querySelector("#left").addEventListener("pointerdown", () => setDirection(-1, 0));
+  document.querySelector("#right").addEventListener("pointerdown", () => setDirection(1, 0));
+
   placeFood();
 
   setInterval(update, config.gameSpeed / 10);
@@ -68,24 +76,25 @@ function update() {
   checkCollision();
 }
 
+function setDirection(x, y) {
+  // snake will not move in the opposite direction
+  if (x == -speedX && y == -speedY) {
+    return;
+  }
+
+  speedX = x;
+  speedY = y;
+}
+
 function move(e) {
-  if (e.code == "ArrowUp" && speedY != 1) {
-    // If up arrow key pressed with this condition...
-    // snake will not move in the opposite direction
-    speedX = 0;
-    speedY = -1;
-  } else if (e.code == "ArrowDown" && speedY != -1) {
-    //If down arrow key pressed
-    speedX = 0;
-    speedY = 1;
-  } else if (e.code == "ArrowLeft" && speedX != 1) {
-    //If left arrow key pressed
-    speedX = -1;
-    speedY = 0;
-  } else if (e.code == "ArrowRight" && speedX != -1) {
-    //If Right arrow key pressed
-    speedX = 1;
-    speedY = 0;
+  if (e.code == "ArrowUp") {
+    setDirection(0, -1);
+  } else if (e.code == "ArrowDown") {
+    setDirection(0, 1);
+  } else if (e.code == "ArrowLeft") {
+    setDirection(-1, 0);
+  } else if (e.code == "ArrowRight") {
+    setDirection(1, 0);
   }
 }
 
