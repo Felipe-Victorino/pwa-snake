@@ -12,7 +12,19 @@ let foodY;
 let board;
 let context;
 
+let score = 1;
+let curSpeed = config.gameSpeed;
+
 let gameOver = false;
+
+const buttons = document.querySelectorAll(".dpad-button");
+
+const inputState = {
+  up: false,
+  down: false,
+  left: false,
+  right: false,
+};
 
 export function start() {
   board = document.querySelector("#game-board");
@@ -21,9 +33,34 @@ export function start() {
   context = board.getContext("2d");
 
   addEventListener("keyup", move);
+  buttonSetup();
+
   placeFood();
 
-  setInterval(update, config.gameSpeed / 10);
+  setInterval(update, curSpeed / 10);
+}
+
+function buttonSetup() {
+  console.log("Button setup");
+  buttons.forEach((btn) => {
+    const direction = btn.dataset.direction;
+    console.log(`Setting up button: ${direction}`);
+
+    btn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      btn.setPointerCapture(e.pointerId);
+      inputState[direction] = true;
+      btn.classList.add("active");
+    });
+
+    const releaseButton = () => {
+      inputState[direction] = false;
+      btn.classList.remove("active");
+    };
+
+    btn.addEventListener("pointerup", releaseButton);
+    btn.addEventListener("pointercancel", releaseButton);
+  });
 }
 
 function update() {
@@ -31,15 +68,19 @@ function update() {
     return;
   }
 
-  context.fillStyle = "green";
+  checkDir();
+
+  context.fillStyle = config.bgColor;
   context.fillRect(0, 0, board.width, board.height);
 
   // Set food color and position
-  context.fillStyle = "yellow";
+  context.fillStyle = config.foodColor;
   context.fillRect(foodX, foodY, config.tilesize, config.tilesize);
 
   if (snakeX == foodX && snakeY == foodY) {
     snakeBody.push([foodX, foodY]);
+    score += 1;
+    checkScore();
     placeFood();
   }
 
@@ -52,7 +93,7 @@ function update() {
     snakeBody[0] = [snakeX, snakeY];
   }
 
-  context.fillStyle = "white";
+  context.fillStyle = config.snakeColor;
   snakeX += speedX * config.tilesize; //updating Snake position in X coordinate.
   snakeY += speedY * config.tilesize; //updating Snake position in Y coordinate.
   context.fillRect(snakeX, snakeY, config.tilesize, config.tilesize);
@@ -66,6 +107,13 @@ function update() {
   }
 
   checkCollision();
+}
+
+function checkScore() {
+  let tally = score % 5;
+  if (tally == 0) {
+    curSpeed += 1000;
+  }
 }
 
 function move(e) {
@@ -89,6 +137,28 @@ function move(e) {
   }
 }
 
+function checkDir() {
+  console.log("Mobile movement");
+
+  if (inputState.up) {
+    console.log("up");
+    speedX = 0;
+    speedY = -1;
+  } else if (inputState.down) {
+    console.log("down");
+    speedX = 0;
+    speedY = 1;
+  } else if (inputState.left) {
+    console.log("left");
+    speedX = -1;
+    speedY = 0;
+  } else if (inputState.right) {
+    console.log("right");
+    speedX = 1;
+    speedY = 0;
+  }
+}
+
 function end() {
   gameOver = true;
   alert("Game Over");
@@ -97,9 +167,9 @@ function end() {
 function checkCollision() {
   if (
     snakeX < 0 ||
-    snakeX > config.boardsize * config.tilesize ||
+    snakeX >= config.boardsize * config.tilesize ||
     snakeY < 0 ||
-    snakeY > config.boardsize * config.tilesize
+    snakeY >= config.boardsize * config.tilesize
   ) {
     end();
   }
@@ -119,4 +189,3 @@ function placeFood() {
   //in y coordinates.
   foodY = Math.floor(Math.random() * config.boardsize) * config.tilesize;
 }
-
