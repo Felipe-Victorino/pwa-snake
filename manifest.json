@@ -1,12 +1,17 @@
 {
-  "name": "My PWA",
-  "start_url": "index.html",
+  "name": "PWA Snake",
+  "short_name": "Snake",
+  "description": "Snake game with PWA",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#006400",
+  "theme_color": "#006400",
+  "lang": "pt-BR",
   "icons": [
-    {
-      "src": "icons/snake512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    { "src": "icons/snake192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "icons/snake512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "icons/snake512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
   ]
 }
